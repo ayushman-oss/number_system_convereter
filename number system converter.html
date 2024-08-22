@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.icon{
+    height: 2.5vh;
+    width: 2.5vh;
+    
+    position: fixed;
+    bottom: 1%;
+    fill:beige;
+    z-index: 14;
+    right: 1%;
+    background-color: #3c5a4780;
+    border-radius: 20%;
+}
+.heading {
+  font-size: 2.5vh;
+  position: fixed;
+  top: 10%;
+  right: 0px;
+  transform: translateY(0%) translateX(40%) rotate(-90deg);
+  color: beige; /* Initial color */
+  transition: color 1s ease; 
+  background-color: #111;
+        -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none;
+
+  
+  z-index: 84;
+
+  
+}
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+}
+
+
+.container {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+select, input {
+    padding: 10px;
+    margin: 10px 0;
+    width: 80%;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#outputContainer p {
+    font-size: 18px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number System Converter</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-6 -7.20312 14.89 12.37'%3E%3Cpath  fill='white' d='M5.56-6.81c-.15.22-.46.51-.68.66-.37.25-.4.29-.34.63.03.2.09.82.12 1.37.05.79.03 1.11-.1 1.48-.09.26-.16.74-.16 1.07 0 .58-.01.6-.53 1.13-.45.46-.94.78-1 .65-.01-.01-.18-.5-.37-1.08l-.35-1.05-.35.02c-.72.06-.8.1-.73.44.03.18.06.68.07 1.12l.01.8-.64.13c-.35.07-.67.11-.72.09-.1-.07-.01-3.6.11-4.05.04-.19.11-.6.15-.9.09-.69.23-.92.76-1.18.49-.24.67-.19 1.11.32.4.45.53.99.32 1.31-.21.32-.37.32-.58 0-.22-.33-.36-.32-.74.08-.39.41-.43.88-.1 1.11.34.24 1.54.22 1.96-.04.53-.33.92-1.04.92-1.69 0-.97-.35-1.44-1.74-2.29-.31-.19-1.03-.08-1.72.25-.84.41-.99.51-1.82 1.16-.42.33-.93.63-1.17.69l-.42.11.38 1.13c.28.85.4 1.42.48 2.31.12 1.21.16 1.62.31 2.95.07.6.06.89-.06 1.27-.2.69-.51.91-1.25.91-.82 0-.94-.19-.86-1.4.06-.97.19-1.33.45-1.28.26.05.27.56.03.88-.47.64-.33 1.06.27.81.49-.21.83-.57.92-.96.07-.33.04-.47-.2-.95-.24-.48-.34-.58-.68-.68-1.09-.33-1.8-.03-2.31.99-.26.53-.31.73-.31 1.33.01.73.21 1.31.5 1.47 1.1.59 2.46.95 3.18.84.53-.08 1.23-.37 1.4-.58.12-.14.25-.73.4-1.81l.07-.5.7-.17c.38-.1.7-.17.7-.16 0 .01.1.23.23.5.17.37.22.67.23 1.35.01.48.04.98.08 1.12.07.23.12.25.55.23.92-.05 1.04-.27.82-1.43-.08-.41-.13-.77-.11-.78.02-.02.33.19.7.47.66.51.67.51 1.43.52 1 .02 1.22-.01 1.49-.15.26-.13 1.67-1.86 1.93-2.37.18-.34.64-1.98.58-2.04-.02-.02-.15-.06-.29-.1-.24-.06-.28-.01-.65.7-.56 1.09-1.51 2.26-2 2.47-.56.23-.95.28-1.26.15-.26-.11-1.28-1.2-1.28-1.36 0-.04.16-.15.36-.24.2-.1.59-.4.88-.67.45-.42.55-.58.66-1.07.07-.32.25-.94.4-1.38.67-1.92.98-4.37.59-4.61-.05-.03-.09-.14-.09-.25 0-.33-.35-.22-.64.2z'/%3E%3C/svg%3E">
+
+</head>
+<body>
+<h1 class="heading" id="heading">AYKEN</h1>
+    <h1>
+    <svg class="icon" viewBox="-6 -7.20312 14.89 12.37" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5.56-6.81c-.15.22-.46.51-.68.66-.37.25-.4.29-.34.63.03.2.09.82.12 1.37.05.79.03 1.11-.1 1.48-.09.26-.16.74-.16 1.07 0 .58-.01.6-.53 1.13-.45.46-.94.78-1 .65-.01-.01-.18-.5-.37-1.08l-.35-1.05-.35.02c-.72.06-.8.1-.73.44.03.18.06.68.07 1.12l.01.8-.64.13c-.35.07-.67.11-.72.09-.1-.07-.01-3.6.11-4.05.04-.19.11-.6.15-.9.09-.69.23-.92.76-1.18.49-.24.67-.19 1.11.32.4.45.53.99.32 1.31-.21.32-.37.32-.58 0-.22-.33-.36-.32-.74.08-.39.41-.43.88-.1 1.11.34.24 1.54.22 1.96-.04.53-.33.92-1.04.92-1.69 0-.97-.35-1.44-1.74-2.29-.31-.19-1.03-.08-1.72.25-.84.41-.99.51-1.82 1.16-.42.33-.93.63-1.17.69l-.42.11.38 1.13c.28.85.4 1.42.48 2.31.12 1.21.16 1.62.31 2.95.07.6.06.89-.06 1.27-.2.69-.51.91-1.25.91-.82 0-.94-.19-.86-1.4.06-.97.19-1.33.45-1.28.26.05.27.56.03.88-.47.64-.33 1.06.27.81.49-.21.83-.57.92-.96.07-.33.04-.47-.2-.95-.24-.48-.34-.58-.68-.68-1.09-.33-1.8-.03-2.31.99-.26.53-.31.73-.31 1.33.01.73.21 1.31.5 1.47 1.1.59 2.46.95 3.18.84.53-.08 1.23-.37 1.4-.58.12-.14.25-.73.4-1.81l.07-.5.7-.17c.38-.1.7-.17.7-.16 0 .01.1.23.23.5.17.37.22.67.23 1.35.01.48.04.98.08 1.12.07.23.12.25.55.23.92-.05 1.04-.27.82-1.43-.08-.41-.13-.77-.11-.78.02-.02.33.19.7.47.66.51.67.51 1.43.52 1 .02 1.22-.01 1.49-.15.26-.13 1.67-1.86 1.93-2.37.18-.34.64-1.98.58-2.04-.02-.02-.15-.06-.29-.1-.24-.06-.28-.01-.65.7-.56 1.09-1.51 2.26-2 2.47-.56.23-.95.28-1.26.15-.26-.11-1.28-1.2-1.28-1.36 0-.04.16-.15.36-.24.2-.1.59-.4.88-.67.45-.42.55-.58.66-1.07.07-.32.25-.94.4-1.38.67-1.92.98-4.37.59-4.61-.05-.03-.09-.14-.09-.25 0-.33-.35-.22-.64.2z" fill="beige"/></svg>
+    </h1>
+
+    <div class="container">
+        <h1>Number System Converter</h1>
+        <select id="inputBase">
+            <option value="2">Binary</option>
+            <option value="8">Octal</option>
+            <option value="10" selected>Decimal</option>
+            <option value="16">Hexadecimal</option>
+        </select>
+        <input type="text" id="inputNumber" placeholder="Enter a number">
+        <button onclick="convertNumber()">Convert</button>
+
+        <div id="outputContainer">
+            <p>Binary: <span id="binaryOutput"></span></p>
+            <p>Octal: <span id="octalOutput"></span></p>
+            <p>Decimal: <span id="decimalOutput"></span></p>
+            <p>Hexadecimal: <span id="hexadecimalOutput"></span></p>
+        </div>
+    </div>
+<canvas id="canvas"></canvas>
+    <script>
+function convertNumber() {
+    let inputBase = parseInt(document.getElementById("inputBase").value);
+    let inputNumber = document.getElementById("inputNumber").value.trim();
+
+    if (inputNumber === "") {
+        alert("Please enter a valid number.");
+        return;
+    }
+
+    let decimalNumber;
+    
+    // Convert input to decimal
+    if (inputBase === 10) {
+        decimalNumber = parseFloat(inputNumber);
+    } else if (inputBase === 2 || inputBase === 8 || inputBase === 16) {
+        decimalNumber = parseInt(inputNumber, inputBase);
+        if (inputNumber.includes('.')) {
+            decimalNumber += convertFractionToDecimal(inputNumber.split('.')[1], inputBase);
+        }
+    } else {
+        alert("Unsupported number system.");
+        return;
+    }
+
+    // Convert from decimal to other systems
+    let binaryOutput = convertFromDecimal(decimalNumber, 2);
+    let octalOutput = convertFromDecimal(decimalNumber, 8);
+    let decimalOutput = decimalNumber.toString();
+    let hexadecimalOutput = convertFromDecimal(decimalNumber, 16);
+
+    document.getElementById("binaryOutput").textContent = binaryOutput;
+    document.getElementById("octalOutput").textContent = octalOutput;
+    document.getElementById("decimalOutput").textContent = decimalOutput;
+    document.getElementById("hexadecimalOutput").textContent = hexadecimalOutput.toUpperCase();
+}
+
+function convertFromDecimal(decimal, base) {
+    let integerPart = Math.floor(decimal);
+    let fractionalPart = decimal - integerPart;
+
+    let integerResult = integerPart.toString(base);
+    let fractionalResult = '';
+
+    if (fractionalPart > 0) {
+        fractionalResult = '.';
+        while (fractionalPart > 0 && fractionalResult.length <= 32) { // limit length to avoid infinite loops
+            fractionalPart *= base;
+            let digit = Math.floor(fractionalPart);
+            fractionalResult += digit.toString(base);
+            fractionalPart -= digit;
+        }
+    }
+
+    return integerResult + fractionalResult;
+}
+
+function convertFractionToDecimal(fraction, base) {
+    let decimalValue = 0;
+    for (let i = 0; i < fraction.length; i++) {
+        decimalValue += parseInt(fraction[i], base) / Math.pow(base, i + 1);
+    }
+    return decimalValue;
+}
+const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const symbols = ['=', '-', '+','?']; // Mathematical symbols
+    const lim=canvas.height<canvas.width ? canvas.height : canvas.width;
+    
+
+    let symbolsArray = [];
+
+    function getRandomSymbol() {
+        return symbols[Math.floor(Math.random() * symbols.length)];
+    }
+
+    function getRandomSize() {
+        return Math.random() *( lim*0.5); // Dynamic size based on canvas width
+    }
+
+    function createSymbol() {
+        const symbol = {
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: getRandomSize(),
+            speedX: Math.random() * 2 - 1, // Random speed between -1 and 1
+            speedY: Math.random() * 2 - 1,
+            spinSpeed: Math.random() * 0.1 - 0.05, // Random spin speed between -0.05 and 0.05
+            rotation: Math.random() * Math.PI * 2, // Random initial rotation angle
+            symbol: getRandomSymbol(),
+            visible: true
+        };
+        symbolsArray.push(symbol);
+    }
+
+    function update() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < symbolsArray.length; i++) {
+            const symbol = symbolsArray[i];
+
+            if (symbol.visible) {
+                ctx.save();
+                ctx.fillStyle = 'green'; 
+                ctx.font = symbol.size + 'px Arial';
+                ctx.translate(symbol.x, symbol.y);
+                ctx.rotate(symbol.rotation);
+                ctx.fillText(symbol.symbol, -symbol.size / 2, symbol.size / 2); // Adjust position for centering
+                ctx.restore();
+            }
+
+            symbol.x += symbol.speedX;
+            symbol.y += symbol.speedY;
+            symbol.rotation += symbol.spinSpeed; // Increment rotation angle
+
+            // Bounce off edges
+            if (symbol.x <= 0 || symbol.x >= canvas.width) {
+                symbol.speedX *= -1;
+            }
+            if (symbol.y <= 0 || symbol.y >= canvas.height) {
+                symbol.speedY *= -1;
+            }
+
+            // Boundary check
+            if (symbol.x < -symbol.size || symbol.x > canvas.width + symbol.size || symbol.y < -symbol.size || symbol.y > canvas.height + symbol.size) {
+                symbol.visible = false;
+            }
+
+            // Check collision with other symbols
+            for (let j = i + 1; j < symbolsArray.length; j++) {
+                const otherSymbol = symbolsArray[j];
+                const dx = symbol.x - otherSymbol.x;
+                const dy = symbol.y - otherSymbol.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < (symbol.size + otherSymbol.size) / 2) {
+                    if (symbol.size > otherSymbol.size) {
+                        otherSymbol.visible = false;
+                    } else {
+                        symbol.visible = false;
+                    }
+                }
+            }
+        }
+
+        // Remove invisible symbols
+        symbolsArray = symbolsArray.filter(symbol => symbol.visible);
+
+        // Add new symbols to maintain equilibrium
+        if (symbolsArray.length < 50) {
+            createSymbol();
+        }
+
+        requestAnimationFrame(update);
+    }
+
+    // Resize canvas to fit window
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+
+    // Initialize
+    resizeCanvas();
+    for (let i = 0; i < 50; i++) {
+        createSymbol();
+    }
+    update();
+</script>
+</body>
+</html>
